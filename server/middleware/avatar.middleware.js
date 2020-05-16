@@ -1,10 +1,11 @@
 const multer = require('multer');
 import { v4 as uuidv4 } from 'uuid';
-const path = 'client/avatars';
+const path = require('path');
+const avatarPath = path.join(__dirname, '../../avatars');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path);
+        cb(null, avatarPath);
     },
     filename: (req, file, cb) => {
         cb(null, uuidv4().toString() + '_' + file.originalname);
@@ -21,6 +22,6 @@ const fileFilter = (req, file, cb) => {
 const multerMiddleware = multer({
     storage,
     fileFilter,
-}).single('filedata');
+}).single('avatarImage');
 
 module.exports = multerMiddleware;
