@@ -48,7 +48,7 @@ module.exports = class UserService {
             { useFindAndModify: false }
         );
         await UserModel.deleteOne({ _id: id });
-        return req;
+        return id;
     };
 
     editUser = async (body) => {
