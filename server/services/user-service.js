@@ -42,13 +42,14 @@ module.exports = class UserService {
     };
 
     deleteUser = async (id) => {
+        const user = await this.getUser(id);
         await AuthModel.findOneAndUpdate(
             {},
             { $pull: { manageUsers: id } },
             { useFindAndModify: false }
         );
         await UserModel.deleteOne({ _id: id });
-        return id;
+        return user;
     };
 
     editUser = async (body) => {
