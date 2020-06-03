@@ -20,9 +20,9 @@ class AuthController {
                 email,
                 password,
             });
-            const dataUrl = customer.avatar_img
-                ? instanceAvatarService.getAvatar(customer.avatar_img)
-                : '';
+            const dataUrl = instanceAvatarService.getAvatar(
+                customer.avatar_img
+            );
 
             res.status(201).send({
                 token,
