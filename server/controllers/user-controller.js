@@ -4,10 +4,14 @@ const instanceUserService = new UserService();
 module.exports = class UserController {
     getUsers = (req, res) => {
         try {
-            const { customer } = req;
+            const { customer, count } = req;
             const users = instanceUserService.getUsers(customer);
             const avatarPath = instanceUserService.getAvatarPath(customer);
-            return res.status(200).send({ users, avatarPath });
+            return res.status(200).send({
+                users,
+                usersCount: customer.usersCount,
+                avatarPath,
+            });
         } catch (err) {
             console.log('Error', err);
             return res.status(500).send({ message: err.message });

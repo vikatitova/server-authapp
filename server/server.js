@@ -12,10 +12,6 @@ app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/avatar', avatarRoutes);
 
-// app.get('*', (req, res) => {
-//     res.redirect(`http://${hostname}:${port}`);
-// });
-
 app.listen(port, hostname, () =>
     console.log(`Server running at http://${hostname}:${port}/`)
 );
