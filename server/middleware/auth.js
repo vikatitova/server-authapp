@@ -22,8 +22,8 @@ const authMiddleware = async (req, res, next) => {
             throw new Error('Customer does not exist in db');
         }
 
+        customer.usersCount = await getUsersCount(customer);
         customer.manageUsers = await getUsersByQuery(customer, req.query);
-        customer.usersCount = await getUsersCount();
 
         req.customer = customer;
         next();
@@ -45,6 +45,11 @@ const getUsersByQuery = (customer, { pageNumber, usersPerPage }) => {
         .limit(Number(usersPerPage));
 };
 
-const getUsersCount = () => UserModel.countDocuments();
+const getUsersCount = async (customer) => {
+    const docs = await UserModel.find({
+        _id: { $in: customer.manageUsers },
+    });
+    return docs.length;
+};
 
 module.exports = authMiddleware;
